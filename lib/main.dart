@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:random_number_game/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'custom_toast.dart';
@@ -12,53 +13,8 @@ void main() {
     debugShowCheckedModeBanner: false,
     home: Scaffold(
       backgroundColor: Colors.white,
-      drawer: Drawer(
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text("Rafid Tawhid"),
-              accountEmail: Text("rafid@pencilbox.edu.bd"),
-              currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.orange,
-                child: Text(
-                  "PB",
-                  style: TextStyle(fontSize: 30.0),
-                ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.home), title: Text("Home"),
-              onTap: () {
 
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.settings), title: Text("Settings"),
-              onTap: () {
-
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.contacts), title: Text("Contact Us"),
-              onTap: () {
-              },
-            ),
-          ],
-        ),
-      ),
-      appBar: AppBar(
-        title: const Text(
-          "G-Game",
-        ),
-        centerTitle: true,
-
-
-      ),
-      body: HomePage(
-
-      ),
+      body: SplashScreen(),
     ),
   ));
 }
@@ -104,6 +60,7 @@ class _HomePageState extends State<HomePage> {
   ///
   late FToast fToast;
 
+
   @override
   void initState() {
     super.initState();
@@ -113,6 +70,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    //initial call
+    _rollTheDice();
+
+
     return Center(
       child: SingleChildScrollView(
         child: Column(
@@ -127,6 +89,7 @@ class _HomePageState extends State<HomePage> {
                     'Higest Score :$_higestScore',
                     style: TextStyle(fontSize: 18,),
                   ),
+
                 ],
               ),
             ),
@@ -138,22 +101,11 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(height: 50,),
             if (showMsg)
-
               Center(
-                  child: Image(
-                    image: NetworkImage(
-                        'https://cdn.lowgif.com/full/5dd674c82d94d74b-.gif'),
-                    height: 150,
-                    width: 200,
-                  ))
+                  child: Image.asset('img/anim2.gif',height: 150,width: 200,),)
             else
               Center(
-                child: Image(
-                  image: NetworkImage(
-                      'https://monophy.com/media/3o7WIvAqjGWF2rr44w/monophy.gif'),
-                  height: 150,
-                  width: 200,
-                ),
+              child: Image.asset('img/anim3.gif',height: 150,width: 200,),
 
               ),
 
@@ -365,14 +317,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _rollTheDice() {
+
+    _readHigestScore();
     SystemSound.play(SystemSoundType.click);
-    showMsg = false;
 
-    addIntToSF() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setInt('sk',_score);
+    if(_score>_higestScore)
+    {
+      _higestScore=_score;
     }
-
     setState(() {
       _index1 = _random.nextInt(9);
       _index2 = _random.nextInt(9);
@@ -431,10 +383,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void snacks() {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    _rollTheDice();
-  }
 
   showToast() {
     Widget toast = Container(
@@ -492,12 +440,19 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FlatButton(
-                  color: Colors.red,
+                  color: Colors.grey,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0)),
                   child: new Text('Exit',style: TextStyle(color: Colors.white),),
                   onPressed: () {
-                    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                    _saveLastScore(_score);
+                    fToast.removeCustomToast();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                SplashScreen()));
+                    // SystemChannels.platform.invokeMethod('SystemNavigator.pop');
                   },
                 ),
                 SizedBox(
@@ -525,7 +480,7 @@ class _HomePageState extends State<HomePage> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.CENTER,
-      toastDuration: Duration(seconds: 7),
+      toastDuration: Duration(seconds: 20),
     );
 
 
@@ -535,18 +490,31 @@ class _HomePageState extends State<HomePage> {
 
   void customToastShow() {
     fToast.removeCustomToast();
+      _score=0;
+
     _rollTheDice();
   }
 
-  //retrive value
-  getIntValuesSF() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    //Return int
-    int? intValue = prefs.getInt('sk');
-      _higestScore=intValue!;
+  void _saveLastScore(int score) async {
 
-    return intValue;
+      final prefs = await SharedPreferences.getInstance();
+      final key = 'my_int_key';
+      final value = score;
+      prefs.setInt(key, value);
+      print('saved $value');
   }
+  _readHigestScore() async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'my_int_key';
+    final value = prefs.getInt(key) ?? 0;
+    print('read: $value');
+      _higestScore=value;
+
+  }
+
+
+
+
 }
 
 
