@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'contact_page.dart';
 import 'main.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -71,13 +72,24 @@ class _SplashScreenState extends State<SplashScreen> {
                                         ),
                                         ListTile(
                                           leading: Icon(Icons.settings),
-                                          title: Text("Settings"),
+                                          title: Text("My Profile"),
+                                          onTap: () {},
+                                        ),
+                                        ListTile(
+                                          leading: Icon(Icons.settings),
+                                          title: Text("Players Profile"),
                                           onTap: () {},
                                         ),
                                         ListTile(
                                           leading: Icon(Icons.contacts),
                                           title: Text("Contact Us"),
-                                          onTap: () {},
+                                         onTap: ()
+                                          {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                builder: (context) =>ContactPage()));
+                                          },
                                         ),
                                       ],
                                     ),

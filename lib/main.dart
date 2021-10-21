@@ -6,6 +6,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:random_number_game/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
+
 import 'custom_toast.dart';
 
 void main() {
@@ -41,7 +43,6 @@ class _HomePageState extends State<HomePage> {
   var d = 0;
   bool showMsg = false;
   var _isGameOver = false;
-
   List<int> list = [];
   final _random = Random.secure();
   final _diceList = <String>[
@@ -66,6 +67,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     fToast = FToast();
     fToast.init(context);
+
   }
 
   @override
@@ -73,6 +75,7 @@ class _HomePageState extends State<HomePage> {
 
     //initial call
     _rollTheDice();
+    _readHigestScore();
 
 
     return Center(
@@ -318,13 +321,15 @@ class _HomePageState extends State<HomePage> {
 
   void _rollTheDice() {
 
-    _readHigestScore();
+
     SystemSound.play(SystemSoundType.click);
 
     if(_score>_higestScore)
     {
       _higestScore=_score;
+      _saveLastScore(_higestScore);
     }
+
     setState(() {
       _index1 = _random.nextInt(9);
       _index2 = _random.nextInt(9);
@@ -445,7 +450,7 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(18.0)),
                   child: new Text('Exit',style: TextStyle(color: Colors.white),),
                   onPressed: () {
-                    _saveLastScore(_score);
+
                     fToast.removeCustomToast();
                     Navigator.push(
                         context,
@@ -465,6 +470,7 @@ class _HomePageState extends State<HomePage> {
                   child: new Text('Play',style: TextStyle(color: Colors.white),),
                   onPressed: () {
                     customToastShow();
+
                   },
                 ),
               ],
@@ -497,6 +503,7 @@ class _HomePageState extends State<HomePage> {
 
   void _saveLastScore(int score) async {
 
+
       final prefs = await SharedPreferences.getInstance();
       final key = 'my_int_key';
       final value = score;
@@ -508,7 +515,8 @@ class _HomePageState extends State<HomePage> {
     final key = 'my_int_key';
     final value = prefs.getInt(key) ?? 0;
     print('read: $value');
-      _higestScore=value;
+        _higestScore=value;
+
 
   }
 
