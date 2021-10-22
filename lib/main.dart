@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:random_number_game/splash_screen.dart';
+import 'package:random_number_game/storeData.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+
 
 
 
@@ -29,6 +32,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+
   var _score = 0;
   var _higestScore = 0;
   var _sum = 0;
@@ -43,6 +48,8 @@ class _HomePageState extends State<HomePage> {
   var d = 0;
   bool showMsg = false;
   var _isGameOver = false;
+
+
   List<int> list = [];
   final _random = Random.secure();
   final _diceList = <String>[
@@ -69,6 +76,7 @@ class _HomePageState extends State<HomePage> {
     fToast.init(context);
 
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -321,8 +329,10 @@ class _HomePageState extends State<HomePage> {
 
   void _rollTheDice() {
 
+    DateTime now = DateTime.now();
 
-    SystemSound.play(SystemSoundType.click);
+    print(now.hour.toString() + ":" + now.minute.toString() + ":" + now.day.toString()+now.month.toString());
+
 
     if(_score>_higestScore)
     {
@@ -519,6 +529,7 @@ class _HomePageState extends State<HomePage> {
 
 
   }
+
 
 
 

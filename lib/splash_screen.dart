@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:random_number_game/player_dashboard.dart';
 
 import 'contact_page.dart';
 import 'main.dart';
@@ -35,10 +36,10 @@ class _SplashScreenState extends State<SplashScreen> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25.0)),
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 28.0,right: 28),
+                    padding: const EdgeInsets.only(left: 28.0, right: 28),
                     child: new Text(
                       ' Play ',
-                      style: TextStyle(color: Colors.white,fontSize: 20),
+                      style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),
                   onPressed: () {
@@ -78,17 +79,23 @@ class _SplashScreenState extends State<SplashScreen> {
                                         ListTile(
                                           leading: Icon(Icons.settings),
                                           title: Text("Players Profile"),
-                                          onTap: () {},
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PlayerDashboard()));
+                                          },
                                         ),
                                         ListTile(
                                           leading: Icon(Icons.contacts),
                                           title: Text("Contact Us"),
-                                         onTap: ()
-                                          {
+                                          onTap: () {
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                builder: (context) =>ContactPage()));
+                                                    builder: (context) =>
+                                                        ContactPage()));
                                           },
                                         ),
                                       ],
@@ -102,7 +109,8 @@ class _SplashScreenState extends State<SplashScreen> {
                                   ),
                                   body: HomePage(),
                                 ),
-                              )),
+                              )
+                      ),
                     );
                   },
                 ),
