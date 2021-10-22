@@ -12,7 +12,10 @@ class _PlayerDashboardState extends State<PlayerDashboard> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(title: Text('World Records'),centerTitle: true,),
+        appBar: AppBar(title: Text('World Records'),centerTitle: true ,  leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),),
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -29,6 +32,23 @@ class _PlayerDashboardState extends State<PlayerDashboard> {
                   onPressed: () {},
                   elevation: 18.0,
 
+                  fillColor: Colors.white,
+                  child: Icon(
+                    Icons.wine_bar_rounded,
+                    color: Colors.deepOrange,
+                    size: 30.0,
+                  ),
+                  padding: EdgeInsets.all(15.0),
+                  shape: CircleBorder(),
+                ),
+                subtitle: Text('Legend'+' 11 jul 2021'),
+                trailing: Text('522'),
+              ),
+              ListTile(
+                title: Text('Rafid'),
+                leading: RawMaterialButton(
+                  onPressed: () {},
+                  elevation: 18.0,
                   fillColor: Colors.white,
                   child: Icon(
                     Icons.wine_bar_rounded,

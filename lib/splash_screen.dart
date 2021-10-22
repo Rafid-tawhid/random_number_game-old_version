@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:random_number_game/player_dashboard.dart';
+import 'package:random_number_game/profile_page.dart';
 
 import 'contact_page.dart';
 import 'main.dart';
@@ -74,7 +75,13 @@ class _SplashScreenState extends State<SplashScreen> {
                                         ListTile(
                                           leading: Icon(Icons.settings),
                                           title: Text("My Profile"),
-                                          onTap: () {},
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ProfilePage()));
+                                          },
                                         ),
                                         ListTile(
                                           leading: Icon(Icons.settings),
