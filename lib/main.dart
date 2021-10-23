@@ -465,7 +465,7 @@ class _HomePageState extends State<HomePage> {
                   child: new Text('Exit',style: TextStyle(color: Colors.white),),
                   onPressed: () {
                     _date=now.hour.toString() + ":" + now.minute.toString() + ":" + now.day.toString()+now.month.toString();
-                    fetchAddress();
+                    fetchUsersData();
 
                     _storeDatatoFirebase(idS,nameS,_score,_date,_higestScore,_title,cityS,_achivement);
 
@@ -547,7 +547,7 @@ class _HomePageState extends State<HomePage> {
   }
 
 
-  Future<String> fetchAddress() async {
+  Future<String> fetchUsersData() async {
     final prefs = await SharedPreferences.getInstance();
 
     nameS = prefs.getString("nm")!;
