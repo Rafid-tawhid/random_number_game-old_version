@@ -23,15 +23,12 @@ void main() async {
     debugShowCheckedModeBanner: false,
     home: Scaffold(
       backgroundColor: Colors.white,
-
       body: SplashScreen(),
     ),
   ));
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
   @override
   _HomePageState createState() => _HomePageState();
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:random_number_game/main.dart';
+import 'package:random_number_game/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -103,7 +105,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                  context,
                                  MaterialPageRoute(
                                      builder: (context) =>
-                                         ProfilePage()));
+                                         SplashScreen()));
 
                          },
                          shape: RoundedRectangleBorder(
