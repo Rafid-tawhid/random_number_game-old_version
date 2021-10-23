@@ -60,8 +60,7 @@ class _HomePageState extends State<HomePage> {
   var _achivement='Concurer';
   var _date;
   DateTime now = DateTime.now();
-  late String nameS,idS,cityS;
-
+  String nameS="Bot User",idS="10",cityS="Dhaka";
   List<int> list = [];
   final _random = Random.secure();
   final _diceList = <String>[
@@ -493,7 +492,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     customToastShow();
                     _date=now.hour.toString() + ":" + now.minute.toString() + ":" + now.day.toString()+now.month.toString();
-                    print(_date);
+                    _storeDatatoFirebase(idS,nameS,_score,_date,_higestScore,_title,cityS,_achivement);
                   },
                 ),
               ],

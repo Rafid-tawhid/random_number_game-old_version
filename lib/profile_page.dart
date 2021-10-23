@@ -10,7 +10,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
 
-  late String name,userId,city;
+  String name="Bot User",userId="10",city="Dhaka";
   TextEditingController nameController = new TextEditingController();
   TextEditingController idController = new TextEditingController();
   TextEditingController cityController = new TextEditingController();
@@ -99,6 +99,11 @@ class _ProfilePageState extends State<ProfilePage> {
                              userId=idController.text;
                              city=cityController.text;
                            saveDataToSharedPref(name,userId,city);
+                             Navigator.push(
+                                 context,
+                                 MaterialPageRoute(
+                                     builder: (context) =>
+                                         ProfilePage()));
 
                          },
                          shape: RoundedRectangleBorder(
