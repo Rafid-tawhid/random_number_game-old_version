@@ -1,5 +1,7 @@
 
 import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -13,7 +15,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'custom_toast.dart';
 
-void main() {
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: Scaffold(
@@ -33,7 +38,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-
+  
   var _score = 0;
   var _higestScore = 0;
   var _sum = 0;
@@ -48,6 +53,14 @@ class _HomePageState extends State<HomePage> {
   var d = 0;
   bool showMsg = false;
   var _isGameOver = false;
+  var _id=0;
+  var _name='Rafid Tawhid';
+  var _title='Legend';
+  var _city='Dhaka';
+  var _achivement='Concurer';
+  var _date;
+  DateTime now = DateTime.now();
+  
 
 
   List<int> list = [];
@@ -329,10 +342,6 @@ class _HomePageState extends State<HomePage> {
 
   void _rollTheDice() {
 
-    DateTime now = DateTime.now();
-
-    print(now.hour.toString() + ":" + now.minute.toString() + ":" + now.day.toString()+now.month.toString());
-
 
     if(_score>_higestScore)
     {
@@ -460,6 +469,9 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(18.0)),
                   child: new Text('Exit',style: TextStyle(color: Colors.white),),
                   onPressed: () {
+                    _date=now.hour.toString() + ":" + now.minute.toString() + ":" + now.day.toString()+now.month.toString();
+
+                   _storeDatatoFirebase(_id,_name,_score,_date,_higestScore,_title,_city,_achivement);
 
                     fToast.removeCustomToast();
                     Navigator.push(
@@ -480,7 +492,8 @@ class _HomePageState extends State<HomePage> {
                   child: new Text('Play',style: TextStyle(color: Colors.white),),
                   onPressed: () {
                     customToastShow();
-
+                    _date=now.hour.toString() + ":" + now.minute.toString() + ":" + now.day.toString()+now.month.toString();
+                    print(_date);
                   },
                 ),
               ],
@@ -528,6 +541,13 @@ class _HomePageState extends State<HomePage> {
         _higestScore=value;
 
 
+  }
+
+  void _storeDatatoFirebase(id, name, int score, date, int higestScore, title, city, achivement) {
+    Map<String,dynamic> data={"id":id,"name":name,"title":title,"city":city,"score":score,"higest":higestScore,"date":date,"achivement":achivement};
+    FirebaseFirestore.instance.collection("players").add(data);
+
+    
   }
 
 
