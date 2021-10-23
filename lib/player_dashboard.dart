@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PlayerDashboard extends StatefulWidget {
   const PlayerDashboard({Key? key}) : super(key: key);
@@ -13,6 +14,7 @@ class PlayerDashboard extends StatefulWidget {
 
 class _PlayerDashboardState extends State<PlayerDashboard> {
   final db = FirebaseFirestore.instance;
+  late String name,id,city;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,42 +41,42 @@ class _PlayerDashboardState extends State<PlayerDashboard> {
 
                 decoration: BoxDecoration(
                   image: DecorationImage(
+
                     image: AssetImage("img/bg.jpg"),
                     fit: BoxFit.cover,
                   ),
                 ),
-                  alignment: Alignment.topLeft,
                 child: ListView(
                   children: snapshot.data!.docs.map((doc) {
                     return ListTile(
-                      leading: RawMaterialButton(
-                        onPressed: () {},
-                        elevation: 8.0,
-                        fillColor: Colors.white,
-                        child: Icon(
-                          Icons.wine_bar_rounded,
-                          color: Colors.deepOrange,
-                          size: 30.0,
+                      leading: Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          child: Icon(
+                            Icons.wine_bar_rounded,
+                            color: Colors.deepOrange,
+                            size: 30.0,
+                          ),
+
                         ),
-                        shape: CircleBorder(),
                       ),
                       title: Text(
                         doc['name'],
                         style: TextStyle(fontSize: 20),
                       ),
                       subtitle: Row(
-
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
                             doc['title'],style: TextStyle(color: Colors.red),
-
                           ),
                           Text(
                             doc['date'],style: TextStyle(color: Colors.blue),
                           ),
                         ],
                       ),
-                      trailing: Text(doc['score'].toString()),
+                      trailing: Text(doc['score'].toString(),style: TextStyle(fontSize: 22),),
                     );
                   }).toList(),
                 ),
@@ -84,4 +86,5 @@ class _PlayerDashboardState extends State<PlayerDashboard> {
       ),
     );
   }
+
 }

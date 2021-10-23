@@ -60,8 +60,7 @@ class _HomePageState extends State<HomePage> {
   var _achivement='Concurer';
   var _date;
   DateTime now = DateTime.now();
-  
-
+  late String nameS,idS,cityS;
 
   List<int> list = [];
   final _random = Random.secure();
@@ -470,8 +469,9 @@ class _HomePageState extends State<HomePage> {
                   child: new Text('Exit',style: TextStyle(color: Colors.white),),
                   onPressed: () {
                     _date=now.hour.toString() + ":" + now.minute.toString() + ":" + now.day.toString()+now.month.toString();
+                    fetchAddress();
 
-                   _storeDatatoFirebase(_id,_name,_score,_date,_higestScore,_title,_city,_achivement);
+                    _storeDatatoFirebase(idS,nameS,_score,_date,_higestScore,_title,cityS,_achivement);
 
                     fToast.removeCustomToast();
                     Navigator.push(
@@ -551,7 +551,15 @@ class _HomePageState extends State<HomePage> {
   }
 
 
+  Future<String> fetchAddress() async {
+    final prefs = await SharedPreferences.getInstance();
 
+    nameS = prefs.getString("nm")!;
+    idS= prefs.getString("id")!;
+    cityS = prefs.getString("ct")!;
+
+    return nameS;
+  }
 
 
 }
