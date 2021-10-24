@@ -3,17 +3,12 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:random_number_game/splash_screen.dart';
-import 'package:random_number_game/storeData.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-
-
-
-import 'custom_toast.dart';
 
 void main() async {
 
@@ -22,6 +17,7 @@ void main() async {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: Scaffold(
+
       backgroundColor: Colors.white,
       body: SplashScreen(),
     ),
@@ -494,8 +490,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-          )
-
+          ),
 
         ],
       ),
@@ -553,7 +548,6 @@ class _HomePageState extends State<HomePage> {
     nameS = prefs.getString("nm")!;
     idS= prefs.getString("id")!;
     cityS = prefs.getString("ct")!;
-
     return nameS;
   }
 

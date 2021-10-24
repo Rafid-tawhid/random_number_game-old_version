@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PlayerDashboard extends StatefulWidget {
-  const PlayerDashboard({Key? key}) : super(key: key);
 
   @override
   _PlayerDashboardState createState() => _PlayerDashboardState();
@@ -31,6 +30,7 @@ class _PlayerDashboardState extends State<PlayerDashboard> {
 
         body: StreamBuilder<QuerySnapshot>(
           stream: db.collection('players').snapshots(),
+
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(
@@ -62,6 +62,7 @@ class _PlayerDashboardState extends State<PlayerDashboard> {
                         ),
                       ),
                       title: Text(
+
                         doc['name'],
                         style: TextStyle(fontSize: 20),
                       ),

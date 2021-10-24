@@ -3,6 +3,8 @@ import 'package:random_number_game/player_dashboard.dart';
 import 'package:random_number_game/profile_page.dart';
 
 import 'contact_page.dart';
+
+import 'custom_widget/custom_drawer.dart';
 import 'main.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -51,62 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
                                 debugShowCheckedModeBanner: false,
                                 home: Scaffold(
                                   drawer: Drawer(
-                                    child: ListView(
-                                      // Important: Remove any padding from the ListView.
-                                      padding: EdgeInsets.zero,
-                                      children: <Widget>[
-                                        UserAccountsDrawerHeader(
-                                          accountName: Text("Rafid Tawhid"),
-                                          accountEmail:
-                                              Text("rafid@pencilbox.edu.bd"),
-                                          currentAccountPicture: CircleAvatar(
-                                            backgroundColor: Colors.orange,
-                                            child: Text(
-                                              "PB",
-                                              style: TextStyle(fontSize: 30.0),
-                                            ),
-                                          ),
-                                        ),
-                                        ListTile(
-                                          leading: Icon(Icons.home),
-                                          title: Text("Home"),
-                                          onTap: () {},
-                                        ),
-                                        ListTile(
-                                          leading: Icon(Icons.settings),
-                                          title: Text("My Profile"),
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ProfilePage()));
-                                          },
-                                        ),
-                                        ListTile(
-                                          leading: Icon(Icons.settings),
-                                          title: Text("Players Profile"),
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        PlayerDashboard()));
-                                          },
-                                        ),
-                                        ListTile(
-                                          leading: Icon(Icons.contacts),
-                                          title: Text("Contact Us"),
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ContactPage()));
-                                          },
-                                        ),
-                                      ],
-                                    ),
+                                    child: CustomDrawer(),
                                   ),
                                   appBar: AppBar(
                                     title: const Text(

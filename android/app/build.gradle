@@ -47,6 +47,7 @@ android {
         applicationId "com.example.random_number_game"
         minSdkVersion 23
         targetSdkVersion 30
+        multiDexEnebaled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
