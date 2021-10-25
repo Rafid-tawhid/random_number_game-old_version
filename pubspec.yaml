@@ -40,9 +40,9 @@ dependencies:
   fluttertoast: ^8.0.8
   shared_preferences: ^2.0.8
   firebase_auth: ^3.1.4
-
-
-
+  # icon of google
+  font_awesome_flutter: ^8.10.0
+  get: ^4.3.8
 
 
 dev_dependencies:
