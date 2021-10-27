@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:random_number_game/login_page.dart';
 import 'package:random_number_game/splash_screen.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +20,7 @@ void main() async {
     home: Scaffold(
 
       backgroundColor: Colors.white,
-      body: SplashScreen(),
+      body: LoginPage(),
     ),
   ));
 }
